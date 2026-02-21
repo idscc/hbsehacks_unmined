@@ -1,0 +1,2 @@
+xrpl-py==4.6.0b0
+python-dotenv==1.2.1
