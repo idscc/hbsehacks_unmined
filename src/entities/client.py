@@ -1,7 +1,7 @@
-from entity import Entity
+from .entity import Entity
 
 
-class Bank(Entity):
+class Client(Entity):
     def __init__(self, private_key):
         super().__init__(private_key)
 
