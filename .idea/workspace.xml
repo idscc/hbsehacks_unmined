@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="site update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/src/components/SendXRP.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/SendXRP.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/src/components/SendXRP.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/SendXRP.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/site/vite.config.js" afterDir="false" />
+    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="readme update">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +137,7 @@
       <updated>1771690514986</updated>
       <workItem from="1771690516044" duration="33607000" />
       <workItem from="1771747849174" duration="15672000" />
-      <workItem from="1771775678966" duration="10373000" />
+      <workItem from="1771775678966" duration="10693000" />
     </task>
     <task id="LOCAL-00001" summary="some adds">
       <option name="closed" value="true" />
@@ -328,7 +323,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771787291385</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="readme update">
+      <option name="closed" value="true" />
+      <created>1771787461898</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1771787461898</updated>
+    </task>
+    <task id="LOCAL-00025" summary="readme update">
+      <option name="closed" value="true" />
+      <created>1771787575328</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1771787575328</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,7 +369,8 @@
     <MESSAGE value="readme updates" />
     <MESSAGE value="more README.md" />
     <MESSAGE value="site update" />
-    <option name="LAST_COMMIT_MESSAGE" value="site update" />
+    <MESSAGE value="readme update" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$oracle.coverage" NAME="oracle Coverage Results" MODIFIED="1771734618670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
