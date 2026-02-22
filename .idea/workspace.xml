@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="turns out as soon as I say it doesn't work, it works now. It was a combination of the flags of the token and the client needing to allow receipt of the tokens. 🫠">
+    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="refactoring and cleaning">
+      <change afterPath="$PROJECT_DIR$/src/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entities/bank.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/bank.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/entity.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/util.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,32 +47,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hex_encode.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.oracle.executor&quot;: &quot;Run&quot;,
-    &quot;Python.util.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/chris/PycharmProjects/hbsehacks_unmined/src&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.__init__.executor": "Run",
+    "Python.hex_encode.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.oracle.executor": "Run",
+    "Python.server.executor": "Run",
+    "Python.util.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/chris/PycharmProjects/hbsehacks_unmined/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\src" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\src\entities" />
+      <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\src" />
     </key>
   </component>
   <component name="RunManager">
@@ -122,6 +124,7 @@
       <option name="presentableId" value="Default" />
       <updated>1771690514986</updated>
       <workItem from="1771690516044" duration="33607000" />
+      <workItem from="1771747849174" duration="5835000" />
     </task>
     <task id="LOCAL-00001" summary="some adds">
       <option name="closed" value="true" />
@@ -171,7 +174,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771728259388</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="A *technically* fully working program loop -- only issue is that the client and server don't respond to eachother and instead just do things programmatically. next steps are to make server responsive">
+      <option name="closed" value="true" />
+      <created>1771740204357</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1771740204357</updated>
+    </task>
+    <task id="LOCAL-00008" summary="refactoring and cleaning">
+      <option name="closed" value="true" />
+      <created>1771740451015</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1771740451015</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,13 +203,16 @@
     <MESSAGE value="made an oracle to keep track of exchange price" />
     <MESSAGE value="WHY NO WORKIE&#10;we can make the mpt&#10;we can authorize the mpt&#10;we can delete the mpt&#10;WE CANNOT SEND IT&#10;sddjkddf,lsddfmdkvfkmdwdfvkdewdefvb" />
     <MESSAGE value="turns out as soon as I say it doesn't work, it works now. It was a combination of the flags of the token and the client needing to allow receipt of the tokens. " />
-    <option name="LAST_COMMIT_MESSAGE" value="turns out as soon as I say it doesn't work, it works now. It was a combination of the flags of the token and the client needing to allow receipt of the tokens. " />
+    <MESSAGE value="A *technically* fully working program loop -- only issue is that the client and server don't respond to eachother and instead just do things programmatically. next steps are to make server responsive" />
+    <MESSAGE value="refactoring and cleaning" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring and cleaning" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$oracle.coverage" NAME="oracle Coverage Results" MODIFIED="1771734618670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/hbsehacks_unmined$hex_encode.coverage" NAME="hex_encode Coverage Results" MODIFIED="1771733465142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/hbsehacks_unmined$hex_encode.coverage" NAME="hex_encode Coverage Results" MODIFIED="1771742322949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$__init__.coverage" NAME="__init__ Coverage Results" MODIFIED="1771695469369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/entities" />
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$util.coverage" NAME="util Coverage Results" MODIFIED="1771705686972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/hbsehacks_unmined$main.coverage" NAME="main Coverage Results" MODIFIED="1771740013265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/hbsehacks_unmined$server.coverage" NAME="server Coverage Results" MODIFIED="1771764027758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/hbsehacks_unmined$main.coverage" NAME="main Coverage Results" MODIFIED="1771764019160" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
