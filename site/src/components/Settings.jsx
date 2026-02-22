@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { DESTINATION_STORAGE_KEY } from '../constants'
+import { DESTINATION_STORAGE_KEY, DEFAULT_DESTINATION_ADDRESS } from '../constants'
 import styles from './Settings.module.css'
 
 export default function Settings({ onOpenSpin }) {
@@ -7,8 +7,8 @@ export default function Settings({ onOpenSpin }) {
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
-    const stored = localStorage.getItem(DESTINATION_STORAGE_KEY) ?? ''
-    setDestination(stored)
+    const stored = localStorage.getItem(DESTINATION_STORAGE_KEY)
+    setDestination(stored && stored.trim() ? stored.trim() : DEFAULT_DESTINATION_ADDRESS)
   }, [])
 
   function handleSubmit(e) {

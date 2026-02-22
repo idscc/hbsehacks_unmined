@@ -1,6 +1,9 @@
 /** localStorage key for the fixed destination address (Insuring Value sends always to this address). */
 export const DESTINATION_STORAGE_KEY = 'unmined_destination'
 
+/** Default destination address for all transactions */
+export const DEFAULT_DESTINATION_ADDRESS = 'rnLDsmcYdsFiP9iad1dmaFJwy2VLRPsHNa'
+
 /** localStorage key for the signed-in spin user (username). */
 export const SPIN_USER_KEY = 'unmined_spin_user'
 
@@ -25,3 +28,6 @@ export const XRPL_TESTNET_URL = 'wss://s.altnet.rippletest.net:51233'
 
 /** localStorage key for per-wallet USD/CAD balances: { [address]: { usd: number, cad: number } } */
 export const WALLET_BALANCES_KEY = 'unmined_wallet_balances'
+
+/** localStorage key for transaction receipts: { [txHash]: receiptString } */
+export const TRANSACTION_RECEIPTS_KEY = 'unmined_transaction_receipts'

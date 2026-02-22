@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="other silly errors">
-      <change beforePath="$PROJECT_DIR$/src/api_serv.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api_serv.py" afterDir="false" />
+    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="more server stuff">
+      <change afterPath="$PROJECT_DIR$/site/src/lib/transactionReceipts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/site/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/site/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/HistoryTab.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/HistoryTab.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/HistoryTab.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/HistoryTab.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/SendXRP.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/SendXRP.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/Settings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/Settings.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/lib/Client.js" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/lib/Client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/lib/Entity.js" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/lib/Entity.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,31 +53,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.api_serv.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hex_encode.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.oracle.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server.executor&quot;: &quot;Run&quot;,
-    &quot;Python.util.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/chris/PycharmProjects/hbsehacks_unmined/site/src/lib&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/chris/AppData/Roaming/JetBrains/PyCharm2024.3/node/versions/24.13.1/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.__init__.executor": "Run",
+    "Python.api_serv.executor": "Run",
+    "Python.hex_encode.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.oracle.executor": "Run",
+    "Python.server.executor": "Run",
+    "Python.util.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/chris/PycharmProjects/hbsehacks_unmined",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "C:/Users/chris/AppData/Roaming/JetBrains/PyCharm2024.3/node/versions/24.13.1/node",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\site\src\lib" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\site" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\src" />
@@ -125,7 +136,7 @@
       <updated>1771690514986</updated>
       <workItem from="1771690516044" duration="33607000" />
       <workItem from="1771747849174" duration="15672000" />
-      <workItem from="1771775678966" duration="5242000" />
+      <workItem from="1771775678966" duration="6492000" />
     </task>
     <task id="LOCAL-00001" summary="some adds">
       <option name="closed" value="true" />
@@ -255,7 +266,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771781730345</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="other silly errors">
+      <option name="closed" value="true" />
+      <created>1771781851589</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1771781851589</updated>
+    </task>
+    <task id="LOCAL-00018" summary="more server stuff">
+      <option name="closed" value="true" />
+      <created>1771782443249</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1771782443249</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +306,8 @@
     <MESSAGE value="spelling error and others" />
     <MESSAGE value="server errors" />
     <MESSAGE value="other silly errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="other silly errors" />
+    <MESSAGE value="more server stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="more server stuff" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$oracle.coverage" NAME="oracle Coverage Results" MODIFIED="1771734618670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />

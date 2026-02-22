@@ -1,15 +1,15 @@
-import xrpl from 'xrpl';
+import { Client as XrplClient, Wallet, convertHexToString } from 'xrpl';
 
 class Entity {
     /**
      * @param {string} privateKey - The secret/seed for the wallet
      */
     constructor(privateKey) {
-        const JSON_RPC_URL = "https://s.altnet.rippletest.net:51234/";
+        const WS_URL = "wss://s.altnet.rippletest.net:51233";
         
         this.privateKey = privateKey;
-        this.client = new xrpl.Client(JSON_RPC_URL);
-        this.wallet = xrpl.Wallet.fromSeed(privateKey);
+        this.client = new XrplClient(WS_URL);
+        this.wallet = Wallet.fromSeed(privateKey);
         
         // In JS, we can't 'await' in a constructor. 
         // You would typically call await entity.getInfo() after instantiation.
@@ -21,7 +21,13 @@ class Entity {
      * @returns {Promise<Object>}
      */
     async getInfo() {
-        if (!this.client.isConnected()) await this.client.connect();
+        try {
+            if (!this.client.isConnected()) {
+                await this.client.connect();
+            }
+        } catch (err) {
+            throw new Error(`Failed to connect to XRPL: ${err.message}`);
+        }
 
         const response = await this.client.request({
             command: "account_info",
@@ -39,7 +45,13 @@ class Entity {
      * @returns {Promise<Object>}
      */
     async getTxns() {
-        if (!this.client.isConnected()) await this.client.connect();
+        try {
+            if (!this.client.isConnected()) {
+                await this.client.connect();
+            }
+        } catch (err) {
+            throw new Error(`Failed to connect to XRPL: ${err.message}`);
+        }
 
         const response = await this.client.request({
             command: "account_tx",
@@ -55,7 +67,13 @@ class Entity {
      * @returns {Promise<Object>}
      */
     async getTxn(txHash) {
-        if (!this.client.isConnected()) await this.client.connect();
+        try {
+            if (!this.client.isConnected()) {
+                await this.client.connect();
+            }
+        } catch (err) {
+            throw new Error(`Failed to connect to XRPL: ${err.message}`);
+        }
 
         const response = await this.client.request({
             command: "tx",
@@ -71,7 +89,13 @@ class Entity {
      * @returns {Promise<string>} - The decoded metadata string
      */
     async getMptMeta(issId) {
-        if (!this.client.isConnected()) await this.client.connect();
+        try {
+            if (!this.client.isConnected()) {
+                await this.client.connect();
+            }
+        } catch (err) {
+            throw new Error(`Failed to connect to XRPL: ${err.message}`);
+        }
 
         const response = await this.client.request({
             command: "ledger_entry",
@@ -81,7 +105,7 @@ class Entity {
         const encoded = response.result.node.MPTokenMetadata;
         
         // Equivalent to decode_mptoken_metadata in Python
-        const decoded = xrpl.convertHexToString(encoded);
+        const decoded = convertHexToString(encoded);
         
         return decoded;
     }
@@ -97,7 +121,8 @@ class Entity {
 }
 
 // Equivalent of the if __name__ == '__main__': block
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Only check in Node.js environment (not in browser)
+if (typeof process !== 'undefined' && import.meta.url === `file://${process.argv[1]}`) {
     console.log("DO NOT RUN THIS FILE");
     process.exit(1);
 }

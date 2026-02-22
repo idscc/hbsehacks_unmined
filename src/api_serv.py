@@ -2,11 +2,13 @@ import threading
 import time
 
 from flask import Flask, request
+from flask_cors import CORS
 from xrpl.models import AccountTx
 
 from server_common import *
 
 api = Flask(__name__)
+CORS(api)
 
 pending_iss = dict()
 

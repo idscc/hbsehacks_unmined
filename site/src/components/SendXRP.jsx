@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react'
 import { Wallet, xrpToDrops } from 'xrpl'
 import Client from '../lib/Client.js'
-import { DESTINATION_STORAGE_KEY } from '../constants'
+import { DESTINATION_STORAGE_KEY, DEFAULT_DESTINATION_ADDRESS } from '../constants'
 import { addWalletBalances } from '../lib/walletBalances'
+import { setTransactionReceipt } from '../lib/transactionReceipts'
 import styles from './SendXRP.module.css'
 
 const FRANKFURTER_LATEST = 'https://api.frankfurter.app/latest?from=CAD&to=USD'
 const COINGECKO_XRP_USD = 'https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd'
-const ISSUANCE_API_URL = 'http://localhost:5000/iss'
+const ISSUANCE_API_URL = 'https://api.unmined.ca/iss'
 
 function getStoredDestination() {
   try {
-    return localStorage.getItem(DESTINATION_STORAGE_KEY) ?? ''
+    const stored = localStorage.getItem(DESTINATION_STORAGE_KEY)
+    return stored && stored.trim() ? stored.trim() : DEFAULT_DESTINATION_ADDRESS
   } catch {
-    return ''
+    return DEFAULT_DESTINATION_ADDRESS
   }
 }
 
@@ -63,11 +65,11 @@ export default function SendXRP() {
     setOutput(null)
     setStatus('sending')
 
-    const rawDest = getStoredDestination().trim()
-    const dest = rawDest.toLowerCase() === 'spin' ? '' : rawDest
+    const rawDest = getStoredDestination()
+    const dest = rawDest.toLowerCase() === 'spin' ? DEFAULT_DESTINATION_ADDRESS : (rawDest || DEFAULT_DESTINATION_ADDRESS)
     if (!dest) {
       setStatus('error')
-      setErrorMessage(rawDest.toLowerCase() === 'spin' ? 'Destination "spin" opens the Spin menu. Set a valid XRP address in Settings to send.' : 'Set your default destination address in Settings first.')
+      setErrorMessage('Invalid destination address.')
       return
     }
     if (!validCad) {
@@ -102,56 +104,51 @@ export default function SendXRP() {
       const clientId = wallet.address
       const drops = xrpToDrops(xrpRounded.toString())
 
-      // Initialize Client.js
+      // Initialize Client.js (connects to XRPL)
       client = new Client(secret.trim())
 
-      // First, call API to get MPT issuance ID
-      let issuanceId = null
-      try {
-        const apiResponse = await fetch(ISSUANCE_API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ iss_id: clientId }),
-        })
-
-        if (apiResponse.ok) {
-          const apiData = await apiResponse.json()
-          issuanceId = apiData.iss_id || apiData.issuance_id || apiData.id || apiData.mpt_issuance_id
-          setMptIssuanceId(issuanceId)
-
-          // Authorize the MPT token with allowMpt
-          if (issuanceId) {
-            try {
-              await client.allowMpt(issuanceId)
-            } catch (allowError) {
-              console.error('Error calling allowMpt:', allowError)
-              throw new Error(`Failed to authorize MPT token: ${allowError?.message || String(allowError)}`)
-            }
-          } else {
-            throw new Error('MPT issuance ID not found in API response')
-          }
-        } else {
-          const errorText = await apiResponse.text()
-          throw new Error(`API request failed: ${apiResponse.status} ${apiResponse.statusText} - ${errorText}`)
-        }
-      } catch (apiError) {
-        setStatus('error')
-        setErrorMessage(apiError?.message || 'Failed to get MPT issuance ID from API')
-        setOutput({
-          success: false,
-          error: apiError?.message || 'Failed to get MPT issuance ID from API',
-        })
-        return
-      }
-
-      // Now use Client.js to send XRP (after authorization)
+      // 1) Send XRP first via Client.js
       const txHash = await client.sendXrp(dest, drops)
 
       // Get transaction result to check success
       const txResult = await client.getTxn(txHash)
       const success = txResult.meta?.TransactionResult === 'tesSUCCESS'
+
+      // 2) GET issuance API: get MPT issuance ID for this client (used for allowMpt and later send_hold)
+      let issuanceId = null
+      let receiptString = null
+      try {
+        const issUrl = `${ISSUANCE_API_URL}?iss_id=${encodeURIComponent(clientId)}`
+        const apiResponse = await fetch(issUrl, { method: 'GET' })
+
+        if (apiResponse.ok) {
+          // Get the full response text as the receipt
+          receiptString = await apiResponse.text()
+          
+          // Store receipt for this transaction (store even if JSON parsing fails)
+          if (receiptString && txHash) {
+            setTransactionReceipt(txHash, receiptString)
+          }
+          
+          // Parse JSON to extract issuance ID
+          try {
+            const apiData = JSON.parse(receiptString)
+            issuanceId = apiData.mpt
+            setMptIssuanceId(issuanceId)
+
+            // 3) Authorize MPT with Client.allowMpt (same id can be used later with Client.send_hold)
+            if (issuanceId) {
+              await client.allowMpt(issuanceId)
+            }
+          } catch (parseError) {
+            console.error('Failed to parse API response as JSON:', parseError)
+            // Receipt is already stored, continue
+          }
+        }
+      } catch (apiError) {
+        console.error('Issuance API or allowMpt:', apiError)
+        // Don't fail the whole flow: XRP was already sent; still show success and issuance error if any
+      }
 
       if (success) {
         addWalletBalances(clientId, usdValue, cadNum)
@@ -159,6 +156,7 @@ export default function SendXRP() {
 
       setOutput({
         success,
+        issuanceId,
         txHash,
         ledgerIndex: txResult.ledger_index ?? txResult.validated_ledger_index ?? null,
         account: clientId,
@@ -168,6 +166,7 @@ export default function SendXRP() {
         usdValue,
         result: txResult.meta?.TransactionResult ?? txResult.meta?.engine_result ?? txResult.engine_result ?? 'unknown',
         mptIssuanceId: issuanceId,
+        receipt: receiptString,
       })
       setStatus('success')
     } catch (err) {
@@ -201,9 +200,7 @@ export default function SendXRP() {
           <p className={styles.cardNote}>
             {storedDestination.trim().toLowerCase() === 'spin'
               ? <>Destination is <strong>spin</strong> — opens the Spin menu. Set a valid XRP address in Settings to send.</>
-              : storedDestination.trim()
-                ? <>Sends to: <span className={styles.mono}>{storedDestination.trim()}</span> (change in Settings)</>
-                : <>No destination set. Set your default address in the <strong>Settings</strong> tab.</>}
+              : <>Sends to: <span className={styles.mono}>{storedDestination}</span> (change in Settings)</>}
           </p>
           <label className={styles.label}>
             Value (CAD)
@@ -220,7 +217,7 @@ export default function SendXRP() {
               {ratesError && 'Unable to load rates.'}
               {!ratesError && cadToUsd == null && 'Loading rates…'}
               {!ratesError && cadToUsd != null && !validCad && cadAmount.trim() !== '' && 'Enter a valid amount.'}
-              {!ratesError && cadToUsd != null && validCad && `≈ ${usdEquivalent.toFixed(2)} USD`}
+              {!ratesError && cadToUsd != null && validCad && usdEquivalent != null && `≈ ${usdEquivalent.toFixed(2)} USD`}
             </span>
           </label>
           <label className={styles.label}>
@@ -240,9 +237,9 @@ export default function SendXRP() {
             className={styles.submit}
             disabled={status === 'sending' || cadToUsd == null || xrpUsd == null || !!ratesError}
           >
-{status === 'sending' ? (
-                <>
-                  <span className={styles.spinner} /> Insuring…
+            {status === 'sending' ? (
+              <>
+                <span className={styles.spinner} /> Insuring…
               </>
             ) : (
               'Insure value'
@@ -267,6 +264,8 @@ export default function SendXRP() {
             {output.success ? 'Transaction successful' : 'Transaction result'}
           </h3>
           <dl className={styles.outputList}>
+            <dt>Issuance ID</dt>
+            <dd className={styles.mono}>{output.issuanceId}</dd>
             <dt>Transaction hash</dt>
             <dd className={styles.mono}>{output.txHash}</dd>
             <dt>From</dt>
@@ -289,6 +288,12 @@ export default function SendXRP() {
               <>
                 <dt>MPT Issuance ID</dt>
                 <dd className={styles.mono}>{output.mptIssuanceId}</dd>
+              </>
+            )}
+            {output.receipt && (
+              <>
+                <dt>Transaction Receipt</dt>
+                <dd className={styles.mono} style={{ wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}>{output.receipt}</dd>
               </>
             )}
           </dl>

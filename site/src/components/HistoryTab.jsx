@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Client, Wallet, dropsToXrp } from 'xrpl'
 import { XRPL_TESTNET_URL } from '../constants'
+import { getTransactionReceipt } from '../lib/transactionReceipts'
 import styles from './HistoryTab.module.css'
 
 const TESTNET_EXPLORER = 'https://testnet.xrpl.org/transactions/'
@@ -110,6 +111,7 @@ export default function HistoryTab() {
                   const tx = item.tx || item
                   const hash = tx.hash
                   const amountInfo = parseAmount(tx, myAddress)
+                  const receipt = hash ? getTransactionReceipt(hash) : null
                   return (
                     <li key={hash || i} className={styles.txItem}>
                       <div className={styles.txRow}>
@@ -128,6 +130,12 @@ export default function HistoryTab() {
                         >
                           View on Explorer →
                         </a>
+                      )}
+                      {receipt && (
+                        <div className={styles.receipt}>
+                          <strong>Transaction Receipt:</strong>
+                          <pre className={styles.receiptText}>{receipt}</pre>
+                        </div>
                       )}
                     </li>
                   )

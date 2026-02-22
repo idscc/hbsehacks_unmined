@@ -1,4 +1,4 @@
-import xrpl from 'xrpl';
+import { MPTAuthorize } from 'xrpl'
 import Entity from './Entity.js';
 
 class Client extends Entity {
@@ -14,19 +14,27 @@ class Client extends Entity {
      * @param {string} issId - The MPT Issuance ID
      */
     async allowMpt(issId) {
-        if (!this.client.isConnected()) await this.client.connect();
-        
+        try {
+            console.log('allowMpt', typeof issId, issId)
+            if (!this.client.isConnected()) {
+                await this.client.connect();
+            }
+        } catch (err) {
+            throw new Error(`Failed to connect to XRPL: ${err.message}`);
+        }
+
         const transaction = {
             TransactionType: "MPTokenAuthorize",
             Account: this.wallet.classicAddress,
-            MPTokenIssuanceID: issId,
+            MPTokenIssuanceID: issId
         };
-
+        console.log('transaction', transaction)
         // Autofill, sign, and submit
         const response = await this.client.submitAndWait(transaction, {
-            wallet: this.wallet
-        });
-        
+                wallet: this.wallet,
+                autofill: true
+             });
+
         return response;
     }
 
@@ -38,8 +46,14 @@ class Client extends Entity {
      * @returns {Promise<string>} - The transaction hash
      */
     async sendHold(rx, issId, qty) {
-        if (!this.client.isConnected()) await this.client.connect();
-        
+        try {
+            if (!this.client.isConnected()) {
+                await this.client.connect();
+            }
+        } catch (err) {
+            throw new Error(`Failed to connect to XRPL: ${err.message}`);
+        }
+
         const transaction = {
             TransactionType: "Payment",
             Account: this.wallet.classicAddress,
@@ -64,8 +78,14 @@ class Client extends Entity {
      * @returns {Promise<string>} - The transaction hash
      */
     async sendXrp(address, qty) {
-        if (!this.client.isConnected()) await this.client.connect();
-        
+        try {
+            if (!this.client.isConnected()) {
+                await this.client.connect();
+            }
+        } catch (err) {
+            throw new Error(`Failed to connect to XRPL: ${err.message}`);
+        }
+
         const transaction = {
             TransactionType: "Payment",
             Account: this.wallet.classicAddress,
@@ -82,7 +102,8 @@ class Client extends Entity {
 }
 
 // Equivalent of the if __name__ == '__main__': block
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Only check in Node.js environment (not in browser)
+if (typeof process !== 'undefined' && import.meta.url === `file://${process.argv[1]}`) {
     console.log("DO NOT RUN THIS FILE");
     process.exit(1);
 }
