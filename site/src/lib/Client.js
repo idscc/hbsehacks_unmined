@@ -4,10 +4,9 @@ import Entity from './Entity.js';
 class Client extends Entity {
     /**
      * @param {string} seed - The secret/seed for the wallet
-     * @param {string} server - The JSON-RPC or WebSocket URL
      */
-    constructor(seed, server) {
-        super(seed, server);
+    constructor(seed) {
+        super(seed);
     }
 
     /**
@@ -15,6 +14,8 @@ class Client extends Entity {
      * @param {string} issId - The MPT Issuance ID
      */
     async allowMpt(issId) {
+        if (!this.client.isConnected()) await this.client.connect();
+        
         const transaction = {
             TransactionType: "MPTokenAuthorize",
             Account: this.wallet.classicAddress,
@@ -37,6 +38,8 @@ class Client extends Entity {
      * @returns {Promise<string>} - The transaction hash
      */
     async sendHold(rx, issId, qty) {
+        if (!this.client.isConnected()) await this.client.connect();
+        
         const transaction = {
             TransactionType: "Payment",
             Account: this.wallet.classicAddress,
@@ -61,6 +64,8 @@ class Client extends Entity {
      * @returns {Promise<string>} - The transaction hash
      */
     async sendXrp(address, qty) {
+        if (!this.client.isConnected()) await this.client.connect();
+        
         const transaction = {
             TransactionType: "Payment",
             Account: this.wallet.classicAddress,

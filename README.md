@@ -1,4 +1,4 @@
-# Unmined
+# unmined
 
 ###### An automated banking system powerd by the XRP ledger. Made for NBSEHacks 2026
 
@@ -79,7 +79,7 @@ framework goes as follows:
    ```shell
    python ./src/client.py
    ```
-
+6. View the results on https://testnet.xrpl.org/ and look for the public ids of the bank and client
 #### Note
 
 When running this example, it is slightly interactive, as although the server and client are independant when running
@@ -92,3 +92,14 @@ issuance_id <MPT_issuance_id>
 ```
 
 Copy it and paste it into the client when prompted. the rest is automated
+
+### Website
+This project also has an experimental frontend. In order to use it, do steps 1-3 of the [minimal test](#minimal-test), 
+then
+
+1. Install node.js
+   ```shell
+   cd site/
+   npm init .
+   ```
+2. Follow the instructions in the [site folder](./site/README.md)

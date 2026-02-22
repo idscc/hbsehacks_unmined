@@ -4,8 +4,8 @@ A React web app for insuring value (XRP/Ripple) on the **XRP Ledger Testnet**. I
 
 ## Features
 
-- **Insuring Value** – Enter destination address, amount, and wallet secret to submit a Payment transaction.
-- **Transaction output** – Shows tx hash, from/to, amount, ledger index, and a link to the testnet explorer.
+- **Insuring Value** – Enter amount, and wallet secret to submit a Payment transaction.
+- **Transaction output** – Shows an MPT Issuance ID to hold onto
 - **Tabs** – Insuring Value, History, Balance, and Settings (placeholder content for future features).
 - Dark, modern UI with Outfit and JetBrains Mono fonts.
 

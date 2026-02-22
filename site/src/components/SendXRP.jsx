@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Client, Wallet, xrpToDrops } from 'xrpl'
+import { Wallet, xrpToDrops } from 'xrpl'
+import Client from '../lib/Client.js'
 import { DESTINATION_STORAGE_KEY } from '../constants'
 import { addWalletBalances } from '../lib/walletBalances'
 import styles from './SendXRP.module.css'
 
-const TESTNET_URL = 'wss://s.altnet.rippletest.net:51233'
 const FRANKFURTER_LATEST = 'https://api.frankfurter.app/latest?from=CAD&to=USD'
 const COINGECKO_XRP_USD = 'https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd'
+const ISSUANCE_API_URL = 'http://localhost:5000/iss'
 
 function getStoredDestination() {
   try {
@@ -25,6 +26,7 @@ export default function SendXRP() {
   const [cadToUsd, setCadToUsd] = useState(null) // 1 CAD = X USD
   const [xrpUsd, setXrpUsd] = useState(null)    // 1 XRP = X USD
   const [ratesError, setRatesError] = useState(null)
+  const [mptIssuanceId, setMptIssuanceId] = useState(null)
 
   const storedDestination = getStoredDestination()
 
@@ -96,37 +98,76 @@ export default function SendXRP() {
 
     let client
     try {
-      client = new Client(TESTNET_URL)
-      await client.connect()
-
       const wallet = Wallet.fromSeed(secret.trim())
+      const clientId = wallet.address
       const drops = xrpToDrops(xrpRounded.toString())
 
-      const tx = {
-        TransactionType: 'Payment',
-        Account: wallet.address,
-        Destination: dest,
-        Amount: drops,
+      // Initialize Client.js
+      client = new Client(secret.trim())
+
+      // First, call API to get MPT issuance ID
+      let issuanceId = null
+      try {
+        const apiResponse = await fetch(ISSUANCE_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ iss_id: clientId }),
+        })
+
+        if (apiResponse.ok) {
+          const apiData = await apiResponse.json()
+          issuanceId = apiData.iss_id || apiData.issuance_id || apiData.id || apiData.mpt_issuance_id
+          setMptIssuanceId(issuanceId)
+
+          // Authorize the MPT token with allowMpt
+          if (issuanceId) {
+            try {
+              await client.allowMpt(issuanceId)
+            } catch (allowError) {
+              console.error('Error calling allowMpt:', allowError)
+              throw new Error(`Failed to authorize MPT token: ${allowError?.message || String(allowError)}`)
+            }
+          } else {
+            throw new Error('MPT issuance ID not found in API response')
+          }
+        } else {
+          const errorText = await apiResponse.text()
+          throw new Error(`API request failed: ${apiResponse.status} ${apiResponse.statusText} - ${errorText}`)
+        }
+      } catch (apiError) {
+        setStatus('error')
+        setErrorMessage(apiError?.message || 'Failed to get MPT issuance ID from API')
+        setOutput({
+          success: false,
+          error: apiError?.message || 'Failed to get MPT issuance ID from API',
+        })
+        return
       }
 
-      const prepared = await client.autofill(tx)
-      const signed = wallet.sign(prepared)
-      const result = await client.submitAndWait(signed.tx_blob)
+      // Now use Client.js to send XRP (after authorization)
+      const txHash = await client.sendXrp(dest, drops)
 
-      const success = result.result.meta.TransactionResult === 'tesSUCCESS'
+      // Get transaction result to check success
+      const txResult = await client.getTxn(txHash)
+      const success = txResult.meta?.TransactionResult === 'tesSUCCESS'
+
       if (success) {
-        addWalletBalances(wallet.address, usdValue, cadNum)
+        addWalletBalances(clientId, usdValue, cadNum)
       }
+
       setOutput({
         success,
-        txHash: result.result.hash,
-        ledgerIndex: result.result.ledger_index,
-        account: wallet.address,
+        txHash,
+        ledgerIndex: txResult.ledger_index ?? txResult.validated_ledger_index ?? null,
+        account: clientId,
         destination: dest,
         amount: xrpRounded,
         cadValue: cadNum,
         usdValue,
-        result: result.result.meta?.TransactionResult ?? result.result.meta?.engine_result ?? 'unknown',
+        result: txResult.meta?.TransactionResult ?? txResult.meta?.engine_result ?? txResult.engine_result ?? 'unknown',
+        mptIssuanceId: issuanceId,
       })
       setStatus('success')
     } catch (err) {
@@ -244,6 +285,12 @@ export default function SendXRP() {
             )}
             <dt>Result</dt>
             <dd className={styles.resultCode}>{output.result}</dd>
+            {output.mptIssuanceId && (
+              <>
+                <dt>MPT Issuance ID</dt>
+                <dd className={styles.mono}>{output.mptIssuanceId}</dd>
+              </>
+            )}
           </dl>
           <a
             href={`https://testnet.xrpl.org/transactions/${output.txHash}`}
