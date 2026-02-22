@@ -125,7 +125,3 @@ then
 
 * The site does not export your private key anywhere, since it does everything locally to the device
 * The commandline method or manually sending back an MPT is more robust
-
-
-## BUGS IN XRPL DOCS
-* have to generate mpt_issuance_id manually in python for some reason
