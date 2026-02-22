@@ -1,0 +1,44 @@
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.tab,
+.tabActive {
+  flex: 1 1 auto;
+  min-width: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--text);
+  background: var(--bg-elevated);
+}
+
+.tabActive {
+  color: var(--accent);
+  background: var(--bg-elevated);
+  box-shadow: 0 0 0 1px rgba(0, 170, 228, 0.25);
+}
+
+.tabIcon {
+  font-size: 1rem;
+  opacity: 0.9;
+}

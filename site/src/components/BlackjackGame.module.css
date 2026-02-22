@@ -1,0 +1,119 @@
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  height: 100%;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--text);
+}
+
+.section {
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0 0 0.35rem;
+}
+
+.hand {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-height: 2rem;
+}
+
+.cardChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 3rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font-mono);
+}
+
+.cardChip.red {
+  color: #ef4444;
+}
+
+.betRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.betInput {
+  width: 80px;
+  padding: 0.4rem 0.5rem;
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.5rem 0.85rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
+  color: #fff;
+}
+
+.btnSecondary {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.result {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.result.win {
+  color: var(--success, #22c55e);
+}
+
+.result.lose {
+  color: var(--error, #ef4444);
+}
+
+.result.push {
+  color: var(--text-muted);
+}
