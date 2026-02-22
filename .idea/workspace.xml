@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="more README.md" />
+    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="site update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/SendXRP.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/SendXRP.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/SendXRP.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/SendXRP.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/site/src/components/WithdrawalsTab.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/site/vite.config.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,7 +72,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/chris/PycharmProjects/hbsehacks_unmined",
+    "last_opened_file_path": "C:/Users/chris/PycharmProjects/hbsehacks_unmined/site",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -77,9 +84,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\site" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\site\src\lib" />
-      <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\site" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -135,7 +142,7 @@
       <updated>1771690514986</updated>
       <workItem from="1771690516044" duration="33607000" />
       <workItem from="1771747849174" duration="15672000" />
-      <workItem from="1771775678966" duration="9798000" />
+      <workItem from="1771775678966" duration="10373000" />
     </task>
     <task id="LOCAL-00001" summary="some adds">
       <option name="closed" value="true" />
@@ -313,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771785586076</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="site update">
+      <option name="closed" value="true" />
+      <created>1771787291385</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1771787291385</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +357,8 @@
     <MESSAGE value="site errors" />
     <MESSAGE value="readme updates" />
     <MESSAGE value="more README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="more README.md" />
+    <MESSAGE value="site update" />
+    <option name="LAST_COMMIT_MESSAGE" value="site update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$oracle.coverage" NAME="oracle Coverage Results" MODIFIED="1771734618670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />

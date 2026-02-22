@@ -1,6 +1,6 @@
 # unmined
 
-###### An automated banking system powerd by the XRP ledger. Made for NSBEHacks 2026
+###### An automated banking system powered by the XRP ledger. Made for NSBEHacks 2026
 
 ## Purpose
 
@@ -95,8 +95,8 @@ distributed easily through those containers to other servers around the world
 
 #### Note
 
-When running this example, it is slightly interactive, as although the server and client are independant when running
-(they only interract over XRPL), in order to authorize the transaction the client must somehow acquire the MPT issuance
+When running this example, it is slightly interactive, as although the server and client are independent when running
+(they only interact over XRPL), in order to authorize the transaction the client must somehow acquire the MPT issuance
 ID. So take note that once the client does the initial transaction, the server will generate the MPT issuance ID and
 print it out as
 
