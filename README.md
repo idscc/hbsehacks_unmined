@@ -7,7 +7,9 @@
 
 This system is designed to hold an amount of XRP at the current exchange rate of USD to XRP, and when withdrawn, a new
 amount is calculated with the formula
-$$ReturnedAmount = \frac{R_o}{R_c}DepositedAmount\tag{1}$$ (1)
+
+$$ReturnedAmount = \frac{R_o}{R_c}DepositedAmount\tag{1}$$
+
 where $R_o$ is the old rate that the transaction was held at, and $R_c$ is the current market rate. This is such that
 the net equivalent value of XRP is returned instead of a value that can have inflated or deflated. Since XRP is a
 deflationary currency, the limit of holding is 1 year, where afterward the tokens are clawed back and the funds are
