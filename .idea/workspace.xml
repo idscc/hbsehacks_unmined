@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="refactoring and cleaning">
-      <change afterPath="$PROJECT_DIR$/src/server.py" afterDir="false" />
+    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="full loop with running server, now to add api endpoints instead of raw text inputs">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/bank.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/bank.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +123,7 @@
       <option name="presentableId" value="Default" />
       <updated>1771690514986</updated>
       <workItem from="1771690516044" duration="33607000" />
-      <workItem from="1771747849174" duration="5835000" />
+      <workItem from="1771747849174" duration="9010000" />
     </task>
     <task id="LOCAL-00001" summary="some adds">
       <option name="closed" value="true" />
@@ -190,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771740451015</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="full loop with running server, now to add api endpoints instead of raw text inputs">
+      <option name="closed" value="true" />
+      <created>1771764374468</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1771764374468</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,7 +212,8 @@
     <MESSAGE value="turns out as soon as I say it doesn't work, it works now. It was a combination of the flags of the token and the client needing to allow receipt of the tokens. " />
     <MESSAGE value="A *technically* fully working program loop -- only issue is that the client and server don't respond to eachother and instead just do things programmatically. next steps are to make server responsive" />
     <MESSAGE value="refactoring and cleaning" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring and cleaning" />
+    <MESSAGE value="full loop with running server, now to add api endpoints instead of raw text inputs" />
+    <option name="LAST_COMMIT_MESSAGE" value="full loop with running server, now to add api endpoints instead of raw text inputs" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$oracle.coverage" NAME="oracle Coverage Results" MODIFIED="1771734618670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />

@@ -23,7 +23,7 @@ def handle_event(values):
     global ret_qty
     tx_hash = values["hash"]
     event = values['tx_json']
-    print(type(event['DeliverMax']))
+    # print(type(event['DeliverMax']))
     match event['DeliverMax']:
         case str():  # xrp to mpt
             qty = int(int(event['DeliverMax']) * 0.995)  # interest is .5%
@@ -32,13 +32,13 @@ def handle_event(values):
             print(f'issuance_id: {iss_id}')
             # bank.send_hold(iss_id, os.getenv('CLIENT_ADDR'), qty)
         case dict():  # mpt to xrp
-            print('mpt', event['DeliverMax'])
+            # print('mpt', event['DeliverMax'])
             bank.send_xrp(os.getenv('CLIENT_ADDR'), tx_hash)
 
 
 def handle_auth(values):
     tx_hash = values["hash"]
-    print('auth ack', tx_hash)
+    # print('auth ack', tx_hash)
     iss_id = values['tx_json']['MPTokenIssuanceID']
     acc = values['tx_json']['Account']
     bank.send_hold(iss_id, acc, ret_qty)  # needs to be fixed or multiple requests will overwrite eachother
