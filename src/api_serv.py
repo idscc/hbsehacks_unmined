@@ -1,8 +1,11 @@
-import asyncio
+import threading
+import time
+
+from flask import Flask, request
+from xrpl.models import AccountTx
 
 from server_common import *
-from flask import Flask, request
-import threading
+
 api = Flask(__name__)
 
 pending_iss = dict()
@@ -52,6 +55,7 @@ def main():
 
         time.sleep(1)
 
+
 @api.route('/iss', methods=['GET'])
 def get_iss():
     lookup = request.args.get('iss_id')
@@ -63,6 +67,7 @@ def get_iss():
 
 def api_run():
     api.run()
+
 
 if __name__ == '__main__':
     flask_thread = threading.Thread(target=api_run)
