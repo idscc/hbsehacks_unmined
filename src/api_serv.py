@@ -66,7 +66,7 @@ def get_iss():
 
 
 def api_run():
-    api.run()
+    api.run(host='0.0.0.0', port=5000)
 
 
 if __name__ == '__main__':
