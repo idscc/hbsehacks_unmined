@@ -23,17 +23,15 @@ def handle_event(values):
     global ret_qty
     tx_hash = values["hash"]
     event = values['tx_json']
-    # print(type(event['DeliverMax']))
     match event['DeliverMax']:
         case str():  # xrp to mpt
             qty = int(int(event['DeliverMax']) * 0.995)  # interest is .5%
             ret_qty = qty
             iss_id = bank.create_hold(tx_hash)
             print(f'issuance_id: {iss_id}')
-            # bank.send_hold(iss_id, os.getenv('CLIENT_ADDR'), qty)
         case dict():  # mpt to xrp
-            # print('mpt', event['DeliverMax'])
-            bank.send_xrp(os.getenv('CLIENT_ADDR'), tx_hash)
+            addr = bank.get_txn(tx_hash)['Account']
+            bank.send_xrp(addr, tx_hash)
 
 
 def handle_auth(values):
@@ -48,7 +46,7 @@ def main():
     global ackd_txns, last_used_txn_hash
     while True:
         results = client.request(AccountTx(
-            account=os.getenv('BANK_ADDR')
+            account=bank.wallet.classic_address,
         )).result['transactions']
 
         for value in results:
@@ -63,7 +61,7 @@ def main():
 
             match value['TransactionType']:
                 case 'Payment':
-                    if value['Destination'] != os.getenv('BANK_ADDR'): continue
+                    if value['Destination'] != bank.wallet.classic_address: continue
                     handle_event(event)
                 case 'MPTokenIssuanceCreate':
                     pass

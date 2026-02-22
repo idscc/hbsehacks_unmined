@@ -37,14 +37,17 @@ framework goes as follows:
 
 ## Scripts
 
-| Name      | Function                                                                                                                |
-|-----------|-------------------------------------------------------------------------------------------------------------------------|
-| main.py   | runs a commandline based client that automatically does a full deposit and withdraw sequence, ignoring the time limits. |
-| oracle.py | updates the on-chain oracle for XRP-USD exchange rate.                                                                  |
-| server.py | runs the backend for the functions                                                                                      |
+| Name        | Function                                                                                                                |
+|-------------|-------------------------------------------------------------------------------------------------------------------------|
+| main.py     | runs a commandline based client that automatically does a full deposit and withdraw sequence, ignoring the time limits. |
+| oracle.py   | updates the on-chain oracle for XRP-USD exchange rate.                                                                  |
+| server.py   | runs the backend for the functions                                                                                      |
+| api_serv.py | runs the backend as a rest api, see [API.md](./api.md) for endpoints                                                    |
 
 ## Running
+
 ### Minimal test
+
 1. In order to run a minimal test, first install requirements:
     ```shell
     git clone https://github.com/idscc/hbsehacks_unmined.git unmined
@@ -57,7 +60,7 @@ framework goes as follows:
 2. Create a .env file in the root directory with the following values
 
    | key           | value                                                                 |
-   |---------------|-----------------------------------------------------------------------|
+      |---------------|-----------------------------------------------------------------------|
    | BANK_SECR     | Bank Secret Key                                                       |
    | BANK_ADDR     | Bank Public Address                                                   |
    | CLIENT_SECR   | Client Secret Key                                                     |
@@ -78,10 +81,14 @@ framework goes as follows:
    ```
 
 #### Note
+
 When running this example, it is slightly interactive, as although the server and client are independant when running
 (they only interract over XRPL), in order to authorize the transaction the client must somehow acquire the MPT issuance
-ID. So take note that once the client does the initial transaction, the server will generate the MPT issuance ID and print it out as
+ID. So take note that once the client does the initial transaction, the server will generate the MPT issuance ID and
+print it out as
+
 ```bash
 issuance_id <MPT_issuance_id>
 ```
+
 Copy it and paste it into the client when prompted. the rest is automated

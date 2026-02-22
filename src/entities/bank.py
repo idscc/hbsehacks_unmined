@@ -4,8 +4,8 @@ from xrpl.models.requests.ledger_entry import Oracle
 from xrpl.models.transactions import MPTokenIssuanceCreate
 from xrpl.utils import encode_mptoken_metadata
 
-from .util import mpt_iss_id
 from .entity import Entity
+from .util import mpt_iss_id
 
 
 class Bank(Entity):
