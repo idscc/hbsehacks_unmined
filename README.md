@@ -93,7 +93,7 @@ issuance_id <MPT_issuance_id>
 
 Copy it and paste it into the client when prompted. the rest is automated
 
-### Website
+### Experimental UI
 This project also has an experimental frontend. In order to use it, do steps 1-3 of the [minimal test](#minimal-test), 
 then
 
@@ -103,3 +103,9 @@ then
    npm init .
    ```
 2. Follow the instructions in the [site folder](./site/README.md)
+
+#### Note
+* 
+* Currently only depositing is supported on the site, it will crash if a withdrawal is requested. It is purely a
+frontend issue and not an issue with backend logic.
+* The commandline method or manually sending back an MPT is more robust
