@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="cleaning and refactoring -- started working on api_serv.py, that is server.py but takes the address from a url">
-      <change afterPath="$PROJECT_DIR$/src/server_common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api_serv.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api_serv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.py" afterDir="false" />
-    </list>
+    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="merged the site code badly cause they weren't on git" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +54,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/chris/PycharmProjects/hbsehacks_unmined/src",
+    "last_opened_file_path": "C:/Users/chris/PycharmProjects/hbsehacks_unmined/site",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -72,6 +65,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\site" />
       <recent name="C:\Users\chris\PycharmProjects\hbsehacks_unmined\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -126,7 +120,7 @@
       <option name="presentableId" value="Default" />
       <updated>1771690514986</updated>
       <workItem from="1771690516044" duration="33607000" />
-      <workItem from="1771747849174" duration="12909000" />
+      <workItem from="1771747849174" duration="13276000" />
     </task>
     <task id="LOCAL-00001" summary="some adds">
       <option name="closed" value="true" />
@@ -216,7 +210,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771769782424</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="api_serv.py now does the single thing it needs to do, where it just caches mpts to ids in a dict and gives it back when the client asks for it">
+      <option name="closed" value="true" />
+      <created>1771771442610</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1771771442610</updated>
+    </task>
+    <task id="LOCAL-00013" summary="merged the site code badly cause they weren't on git">
+      <option name="closed" value="true" />
+      <created>1771771742452</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1771771742452</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,7 +244,9 @@
     <MESSAGE value="full loop with running server, now to add api endpoints instead of raw text inputs" />
     <MESSAGE value="add README.md and adjusted a few things" />
     <MESSAGE value="cleaning and refactoring -- started working on api_serv.py, that is server.py but takes the address from a url" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaning and refactoring -- started working on api_serv.py, that is server.py but takes the address from a url" />
+    <MESSAGE value="api_serv.py now does the single thing it needs to do, where it just caches mpts to ids in a dict and gives it back when the client asks for it" />
+    <MESSAGE value="merged the site code badly cause they weren't on git" />
+    <option name="LAST_COMMIT_MESSAGE" value="merged the site code badly cause they weren't on git" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$oracle.coverage" NAME="oracle Coverage Results" MODIFIED="1771734618670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
