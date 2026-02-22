@@ -124,3 +124,7 @@ then
 * Currently only depositing is supported on the site, it will crash if a withdrawal is requested. It is purely a
   frontend issue and not an issue with backend logic.
 * The commandline method or manually sending back an MPT is more robust
+
+
+## BUGS IN XRPL DOCS
+* have to generate mpt_issuance_id manually in python for some reason
