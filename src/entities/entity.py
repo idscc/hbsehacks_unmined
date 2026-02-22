@@ -19,14 +19,14 @@ class Entity:
 
     def get_info(self):
         req = self.client.request(AccountInfo(
-            account=self.wallet.address,
+            account=self.wallet.classic_address,
             ledger_index="validated",
             strict=True,
         ))
         return req.result
 
     def get_txns(self):
-        req = self.client.request(AccountTx(account=self.wallet.address))
+        req = self.client.request(AccountTx(account=self.wallet.classic_address))
         return req.result
 
 

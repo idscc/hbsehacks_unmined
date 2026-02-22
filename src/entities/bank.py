@@ -49,7 +49,7 @@ class Bank(Entity):
         data = encode_mptoken_metadata(data)
 
         transaction = MPTokenIssuanceCreate(
-            account=self.data["account_data"]["Account"],
+            account=self.wallet.classic_address,
             mptoken_metadata=data,
             maximum_amount='1000',
             # flags=0x7C,
@@ -65,7 +65,7 @@ class Bank(Entity):
 
     def send_hold(self, iss_id, rx_id):
         transaction = xrpl.models.transactions.Payment(
-            account=self.data["account_data"]["Account"],
+            account=self.wallet.classic_address,
             amount=MPTAmount(mpt_issuance_id=iss_id, value="100"),
             destination=rx_id,
         )
@@ -74,7 +74,7 @@ class Bank(Entity):
 
     def delete_hold(self, mpt_id):
         transaction = MPTokenIssuanceDestroy(
-            account=self.data["account_data"]["Account"],
+            account=self.wallet.classic_address,
             mptoken_issuance_id=mpt_id
         )
         req = xrpl.transaction.autofill_and_sign(transaction, self.client, self.wallet)
