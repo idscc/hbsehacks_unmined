@@ -3,13 +3,9 @@ import time
 from pprint import pprint
 
 from dotenv import load_dotenv
-from xrpl.core.binarycodec import decode
-from xrpl.models import MPTokenIssuanceCreate
-from xrpl.utils import decode_mptoken_metadata
 
 from src.entities import Bank
 from src.entities import Client
-from src.util import mpt_iss_id
 
 load_dotenv()
 
@@ -19,9 +15,6 @@ c = Client(os.getenv("CLIENT_SECR"))
 pprint(b.data)
 print("Bank balance: ", b.data["account_data"]["Balance"])
 print("Client balance: ", c.data["account_data"]["Balance"])
-
-# hold_id = b.create_hold()
-# pprint(hold_id)
 
 print('Client request hold at current rate')
 tx_hash = c.send_xrp(b.wallet.classic_address, 100)
@@ -38,7 +31,6 @@ print('Client requests return')
 tx_hash = c.send_hold(b.wallet.classic_address, iss_id, 100)
 print('Bank notices and sends back xrp at agreed value')
 b.send_xrp(c.wallet.classic_address, tx_hash)
-
 
 # pprint(b.get_txns())
 if __name__ == '__main__':

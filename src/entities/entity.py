@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from xrpl.clients import JsonRpcClient
 from xrpl.models import AccountInfo, AccountTx, Tx, LedgerEntry
 from xrpl.utils import decode_mptoken_metadata

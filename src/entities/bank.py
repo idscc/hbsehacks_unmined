@@ -1,14 +1,11 @@
-import time
-from pprint import pprint
-
 import xrpl.transaction
-from xrpl.models import MPTokenIssuanceDestroy, Payment, Transaction, MPTAmount, MPTokenAuthorize
+from xrpl.models import MPTokenIssuanceDestroy, MPTAmount, MPTokenAuthorize
 from xrpl.models.requests.ledger_entry import Oracle
+from xrpl.models.transactions import MPTokenIssuanceCreate
 from xrpl.utils import encode_mptoken_metadata
 
 from src.util import mpt_iss_id
 from .entity import Entity
-from xrpl.models.transactions import MPTokenIssuanceCreate
 
 
 class Bank(Entity):

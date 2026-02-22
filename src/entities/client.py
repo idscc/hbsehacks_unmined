@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import xrpl
 from xrpl.models import MPTAmount
 
