@@ -1,4 +1,5 @@
 import os
+import time
 from pprint import pprint
 
 from dotenv import load_dotenv
@@ -15,14 +16,18 @@ load_dotenv()
 b = Bank(os.getenv("BANK_SECR"))
 c = Client(os.getenv("CLIENT_SECR"))
 
-
+pprint(b.data)
 print("Bank balance: ", b.data["account_data"]["Balance"])
 print("Client balance: ", c.data["account_data"]["Balance"])
 
 # hold_id = b.create_hold()
 # pprint(hold_id)
 
-print(b.delete_hold('00E63BBA2F82769EC014E0C71F3542A6A87F79D444CD733B'))
+time.sleep(1)
+hold_iss = b.create_hold()
+
+print(c.allow_mpt(hold_iss))
+print(b.send_hold(hold_iss, c.wallet.classic_address))
 
 # pprint(b.get_txns())
 if __name__ == '__main__':
