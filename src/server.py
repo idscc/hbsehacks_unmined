@@ -1,25 +1,7 @@
-import os
-import time
-
-from dotenv import load_dotenv
-from xrpl.clients import JsonRpcClient
-from xrpl.models import AccountTx
-
-from entities import Bank
-
-load_dotenv()
-
-MINIMUM_TIME = 30
-ackd_txns = []
-ret_qty = None
-
-JSON_RPC_URL = "https://s.altnet.rippletest.net:51234"
-client = JsonRpcClient(JSON_RPC_URL)
-
-bank = Bank(os.getenv("BANK_SECR"))
+from server_common import *
 
 
-def handle_event(values):
+def handle_recv(values):
     global ret_qty
     tx_hash = values["hash"]
     event = values['tx_json']
@@ -34,16 +16,8 @@ def handle_event(values):
             bank.send_xrp(addr, tx_hash)
 
 
-def handle_auth(values):
-    tx_hash = values["hash"]
-    # print('auth ack', tx_hash)
-    iss_id = values['tx_json']['MPTokenIssuanceID']
-    acc = values['tx_json']['Account']
-    bank.send_hold(iss_id, acc, ret_qty)  # needs to be fixed or multiple requests will overwrite eachother
-
-
 def main():
-    global ackd_txns, last_used_txn_hash
+    global ackd_txns
     while True:
         results = client.request(AccountTx(
             account=bank.wallet.classic_address,
@@ -62,7 +36,7 @@ def main():
             match value['TransactionType']:
                 case 'Payment':
                     if value['Destination'] != bank.wallet.classic_address: continue
-                    handle_event(event)
+                    handle_recv(event)
                 case 'MPTokenIssuanceCreate':
                     pass
                 case 'MPTokenAuthorize':

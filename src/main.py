@@ -12,6 +12,7 @@ print("Client balance: ", c.data["account_data"]["Balance"])
 
 print('Client request hold at current rate')
 tx_hash = c.send_xrp(os.getenv('BANK_ADDR'), 100)
+# get request
 print('Client authorizes mpt')
 iss_id = input('issuance_id: ')
 c.allow_mpt(iss_id)
