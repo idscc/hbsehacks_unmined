@@ -26,8 +26,8 @@ print("Client balance: ", c.data["account_data"]["Balance"])
 time.sleep(1)
 hold_iss = b.create_hold()
 
-print(c.allow_mpt(hold_iss))
-print(b.send_hold(hold_iss, c.wallet.classic_address))
+print(c.allow_mpt(hold_iss).result['engine_result'])
+print(b.send_hold(hold_iss, c.wallet.classic_address).result['engine_result'])
 
 # pprint(b.get_txns())
 if __name__ == '__main__':
