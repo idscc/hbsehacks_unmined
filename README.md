@@ -37,12 +37,24 @@ framework goes as follows:
 
 ## Scripts
 
-| Name        | Function                                                                                                                |
-|-------------|-------------------------------------------------------------------------------------------------------------------------|
-| main.py     | runs a commandline based client that automatically does a full deposit and withdraw sequence, ignoring the time limits. |
-| oracle.py   | updates the on-chain oracle for XRP-USD exchange rate.                                                                  |
-| server.py   | runs the backend for the functions                                                                                      |
-| api_serv.py | runs the backend as a rest api, see [API.md](./api.md) for endpoints                                                    |
+| Name             | Function                                                                                                                |
+|------------------|-------------------------------------------------------------------------------------------------------------------------|
+| main.py          | runs a commandline based client that automatically does a full deposit and withdraw sequence, ignoring the time limits. |
+| oracle.py        | updates the on-chain oracle for XRP-USD exchange rate.                                                                  |
+| server.py        | runs the backend for the functions                                                                                      |
+| api_serv.py      | runs the backend as a rest api, see [API.md](./api.md) for endpoints                                                    |
+| server_common.py | DO NOT RUN, purely for file simplification                                                                              |
+| entities/        | contains classes of the bank and client varieties, the site Client.js and Entity.js are based off these                 |
+
+## Future Plans
+The goal for this system is for it to be fully automated and extremely scalable. Since there is already minimal input by
+users and none by server admin, it already has a high degree of automation, though a way to not require the user
+authorize MPT transaction, which would save requests to the chain.
+
+### Scalability
+The server is already running on a server in my basement through a reverse proxy load balancer called traefik. 
+Through this more servers can be added to work in parallel, allowing for higher traffic loads. It can also be 
+distributed easily through those containers to other servers around the world
 
 ## Running
 
@@ -60,7 +72,7 @@ framework goes as follows:
 2. Create a .env file in the root directory with the following values
 
    | key           | value                                                                 |
-      |---------------|-----------------------------------------------------------------------|
+            |---------------|-----------------------------------------------------------------------|
    | BANK_SECR     | Bank Secret Key                                                       |
    | BANK_ADDR     | Bank Public Address                                                   |
    | CLIENT_SECR   | Client Secret Key                                                     |
@@ -80,6 +92,7 @@ framework goes as follows:
    python ./src/client.py
    ```
 6. View the results on https://testnet.xrpl.org/ and look for the public ids of the bank and client
+
 #### Note
 
 When running this example, it is slightly interactive, as although the server and client are independant when running
@@ -94,7 +107,8 @@ issuance_id <MPT_issuance_id>
 Copy it and paste it into the client when prompted. the rest is automated
 
 ### Experimental UI
-This project also has an experimental frontend. In order to use it, do steps 1-3 of the [minimal test](#minimal-test), 
+
+This project also has an experimental frontend. In order to use it, do steps 1-3 of the [minimal test](#minimal-test),
 then
 
 1. Install node.js
@@ -105,7 +119,8 @@ then
 2. Follow the instructions in the [site folder](./site/README.md)
 
 #### Note
-* 
+
+*
 * Currently only depositing is supported on the site, it will crash if a withdrawal is requested. It is purely a
-frontend issue and not an issue with backend logic.
+  frontend issue and not an issue with backend logic.
 * The commandline method or manually sending back an MPT is more robust
