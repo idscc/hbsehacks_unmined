@@ -1,6 +1,7 @@
 # unmined
 
 ###### An automated banking system powered by the XRP ledger. Made for NSBEHacks 2026
+###### Backend it all python, frontend is vite.js
 
 ## Purpose
 
