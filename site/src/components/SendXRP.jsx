@@ -9,6 +9,18 @@ import styles from './SendXRP.module.css'
 const FRANKFURTER_LATEST = 'https://api.frankfurter.app/latest?from=CAD&to=USD'
 const COINGECKO_XRP_USD = 'https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd'
 const ISSUANCE_API_URL = 'https://api.unmined.ca/iss'
+const RECEIPT_POLL_INTERVAL_MS = 2000
+const RECEIPT_POLL_TIMEOUT_MS = 60000
+
+function isReceiptMptZero(receiptString) {
+  if (!receiptString || typeof receiptString !== 'string') return false
+  try {
+    const parsed = JSON.parse(receiptString.trim())
+    return parsed != null && typeof parsed === 'object' && parsed.mpt === 0
+  } catch {
+    return false
+  }
+}
 
 function getStoredDestination() {
   try {
@@ -114,40 +126,46 @@ export default function SendXRP() {
       const txResult = await client.getTxn(txHash)
       const success = txResult.meta?.TransactionResult === 'tesSUCCESS'
 
-      // 2) GET issuance API: get MPT issuance ID for this client (used for allowMpt and later send_hold)
+      // 2) Poll issuance API until receipt is something other than {"mpt":0}, then show results
       let issuanceId = null
       let receiptString = null
-      try {
-        const issUrl = `${ISSUANCE_API_URL}?iss_id=${encodeURIComponent(clientId)}`
-        const apiResponse = await fetch(issUrl, { method: 'GET' })
+      let receiptError = null
+      let gotValidReceipt = false
+      const issUrl = `${ISSUANCE_API_URL}?iss_id=${encodeURIComponent(clientId)}`
+      const pollDeadline = Date.now() + RECEIPT_POLL_TIMEOUT_MS
 
-        if (apiResponse.ok) {
-          // Get the full response text as the receipt
-          receiptString = await apiResponse.text()
-          
-          // Store receipt for this transaction (store even if JSON parsing fails)
-          if (receiptString && txHash) {
-            setTransactionReceipt(txHash, receiptString)
-          }
-          
-          // Parse JSON to extract issuance ID
-          try {
-            const apiData = JSON.parse(receiptString)
-            issuanceId = apiData.mpt
-            setMptIssuanceId(issuanceId)
-
-            // 3) Authorize MPT with Client.allowMpt (same id can be used later with Client.send_hold)
-            if (issuanceId) {
-              await client.allowMpt(issuanceId)
+      while (Date.now() < pollDeadline) {
+        try {
+          const apiResponse = await fetch(issUrl, { method: 'GET' })
+          if (apiResponse.ok) {
+            receiptString = await apiResponse.text()
+            if (receiptString && txHash) {
+              setTransactionReceipt(txHash, receiptString)
             }
-          } catch (parseError) {
-            console.error('Failed to parse API response as JSON:', parseError)
-            // Receipt is already stored, continue
+            if (!isReceiptMptZero(receiptString)) {
+              try {
+                const apiData = JSON.parse(receiptString)
+                issuanceId = apiData.mpt
+                setMptIssuanceId(issuanceId)
+                if (issuanceId) {
+                  await client.allowMpt(issuanceId)
+                }
+              } catch (parseError) {
+                console.error('Failed to parse API response as JSON:', parseError)
+              }
+              gotValidReceipt = true
+              break
+            }
           }
+        } catch (apiError) {
+          console.error('Issuance API poll error:', apiError)
         }
-      } catch (apiError) {
-        console.error('Issuance API or allowMpt:', apiError)
-        // Don't fail the whole flow: XRP was already sent; still show success and issuance error if any
+        await new Promise((r) => setTimeout(r, RECEIPT_POLL_INTERVAL_MS))
+      }
+
+      if (!gotValidReceipt) {
+        receiptError = 'Transaction receipt not yet available (no MPT issuance).'
+        receiptString = null
       }
 
       if (success) {
@@ -167,6 +185,7 @@ export default function SendXRP() {
         result: txResult.meta?.TransactionResult ?? txResult.meta?.engine_result ?? txResult.engine_result ?? 'unknown',
         mptIssuanceId: issuanceId,
         receipt: receiptString,
+        receiptError,
       })
       setStatus('success')
     } catch (err) {
@@ -290,10 +309,16 @@ export default function SendXRP() {
                 <dd className={styles.mono}>{output.mptIssuanceId}</dd>
               </>
             )}
-            {output.receipt && (
+            {(output.receipt != null || output.receiptError) && (
               <>
                 <dt>Transaction Receipt</dt>
-                <dd className={styles.mono} style={{ wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}>{output.receipt}</dd>
+                <dd>
+                  {output.receiptError ? (
+                    <span className={styles.receiptError}>{output.receiptError}</span>
+                  ) : (
+                    <span className={styles.mono} style={{ whiteSpace: 'nowrap', overflowX: 'auto' }}>{output.receipt}</span>
+                  )}
+                </dd>
               </>
             )}
           </dl>

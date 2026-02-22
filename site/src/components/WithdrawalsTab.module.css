@@ -94,6 +94,21 @@
   transform: none;
 }
 
+.spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .resultCard {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -134,4 +149,17 @@
   font-size: 0.85rem;
   color: var(--text-muted);
   font-style: italic;
+}
+
+.explorerLink {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.explorerLink:hover {
+  text-decoration: underline;
 }

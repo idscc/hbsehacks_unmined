@@ -207,6 +207,11 @@
   color: var(--text-muted);
 }
 
+.receiptError {
+  color: var(--error);
+  font-weight: 500;
+}
+
 .explorerLink {
   display: inline-block;
   margin-top: 1rem;
