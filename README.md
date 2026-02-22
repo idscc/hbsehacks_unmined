@@ -1,7 +1,7 @@
 # unmined
 
 ###### An automated banking system powered by the XRP ledger. Made for NSBEHacks 2026
-###### Backend it all python, frontend is vite.js
+###### Backend it all python, frontend is vite.js, on [testnet](https://testnet.xrpl.org/))
 
 ## Purpose
 
@@ -123,6 +123,7 @@ then
 
 #### Note
 
+* The site does not export your private key anywhere, since it does everything locally to the device
 * The commandline method or manually sending back an MPT is more robust
 
 
