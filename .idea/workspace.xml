@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="Client.js and Entity.js converted from client.py and entity.py">
+    <list default="true" id="5e502d14-8d5f-4999-922c-4076183e0d1e" name="Changes" comment="spelling error and others">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api_serv.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api_serv.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +127,7 @@
       <updated>1771690514986</updated>
       <workItem from="1771690516044" duration="33607000" />
       <workItem from="1771747849174" duration="15672000" />
-      <workItem from="1771775678966" duration="4239000" />
+      <workItem from="1771775678966" duration="4922000" />
     </task>
     <task id="LOCAL-00001" summary="some adds">
       <option name="closed" value="true" />
@@ -261,7 +262,8 @@
     <MESSAGE value="api_serv.py now does the single thing it needs to do, where it just caches mpts to ids in a dict and gives it back when the client asks for it" />
     <MESSAGE value="merged the site code badly cause they weren't on git" />
     <MESSAGE value="Client.js and Entity.js converted from client.py and entity.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Client.js and Entity.js converted from client.py and entity.py" />
+    <MESSAGE value="spelling error and others" />
+    <option name="LAST_COMMIT_MESSAGE" value="spelling error and others" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hbsehacks_unmined$oracle.coverage" NAME="oracle Coverage Results" MODIFIED="1771734618670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />

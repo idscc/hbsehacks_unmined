@@ -1,11 +1,9 @@
 import os
-import time
 
 from dotenv import load_dotenv
 from xrpl.clients import JsonRpcClient
-from xrpl.models import AccountTx
 
-from src.entities import Bank
+from entities import Bank
 
 load_dotenv()
 
