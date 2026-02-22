@@ -1,6 +1,6 @@
 # unmined
 
-###### An automated banking system powerd by the XRP ledger. Made for NBSEHacks 2026
+###### An automated banking system powerd by the XRP ledger. Made for NSBEHacks 2026
 
 ## Purpose
 

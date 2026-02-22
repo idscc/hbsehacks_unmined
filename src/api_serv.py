@@ -54,7 +54,7 @@ def main():
 
 @api.route('/iss', methods=['GET'])
 def get_iss():
-    lookup = request.json['iss_id']
+    lookup = request.args.get('iss_id')
     if lookup not in pending_iss:
         print('No pending issuance')
         return {'mpt': 0}
