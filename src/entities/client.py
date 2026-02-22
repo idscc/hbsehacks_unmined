@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import xrpl
 from xrpl.models import MPTAmount
 
@@ -16,13 +18,13 @@ class Client(Entity):
         transaction = xrpl.transaction.autofill_and_sign(transaction, self.client, self.wallet)
         return xrpl.transaction.submit(transaction, self.client)
 
-    def send_hold(self, iss_id, qty):
+    def send_hold(self, rx, iss_id, qty):
         transaction = xrpl.models.transactions.Payment(
             account=self.wallet.classic_address,
-            amount=MPTAmount(iss_id, qty)
+            amount=MPTAmount(mpt_issuance_id=iss_id, value=str(qty)),
+            destination=rx,
         )
-        transaction = xrpl.transaction.autofill_and_sign(transaction, self.client, self.wallet)
-        return xrpl.transaction.submit(transaction, self.client)
+        return xrpl.transaction.sign_and_submit(transaction, self.client, self.wallet).result['tx_json']['hash']
 
     def send_xrp(self, address, qty: int):
         transaction = xrpl.models.transactions.Payment(
@@ -31,7 +33,8 @@ class Client(Entity):
             destination=address
         )
         transaction = xrpl.transaction.autofill_and_sign(transaction, self.client, self.wallet)
-        return xrpl.transaction.submit(transaction, self.client)
+        res = xrpl.transaction.submit(transaction, self.client)
+        return res.result['tx_json']['hash']
 
 
 if __name__ == '__main__':

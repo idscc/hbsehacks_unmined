@@ -23,8 +23,8 @@ class Bank(Entity):
         transaction = xrpl.transaction.autofill_and_sign(transaction, self.client, self.wallet)
         return xrpl.transaction.submit(transaction, self.client)
 
-    def create_hold(self):
-        price = int(float(self.client.request(xrpl.models.requests.GetAggregatePrice(
+    def get_current_rate(self):
+        return int(float(self.client.request(xrpl.models.requests.GetAggregatePrice(
             id="XRP",
             oracles=[Oracle(
                 account=self.data['account_data']['Account'],
@@ -33,7 +33,8 @@ class Bank(Entity):
             base_asset="XRP",
             quote_asset="USD",
         )).result['entire_set']['mean']) * 10 ** 4)
-        print(price)
+
+    def create_hold(self, tx_hash):
         data = {
             'ticker': 'HOLDT',
             'name': 'XRP USD hold token',
@@ -42,8 +43,9 @@ class Bank(Entity):
             'asset_subclass': 'other',
             'issuer_name': 'unmined.ca',
             'additional_info': {
-                'exchange': price,
-                'scale': 4
+                'rate': self.get_current_rate(),
+                'scale': 4,
+                'txn_hash': tx_hash,
             }
         }
         data = encode_mptoken_metadata(data)
@@ -51,11 +53,8 @@ class Bank(Entity):
         transaction = MPTokenIssuanceCreate(
             account=self.wallet.classic_address,
             mptoken_metadata=data,
-            maximum_amount='1000',
-            # flags=0x7C,
         )
-        req = xrpl.transaction.autofill_and_sign(transaction, self.client, self.wallet)
-        res = xrpl.transaction.submit(req, self.client)
+        res = xrpl.transaction.sign_and_submit(transaction, self.client, self.wallet, autofill=True)
         res = res.result
 
         seq = res['tx_json']['Sequence']
@@ -63,10 +62,10 @@ class Bank(Entity):
         mpt_id = mpt_iss_id(seq, acc)
         return mpt_id
 
-    def send_hold(self, iss_id, rx_id):
+    def send_hold(self, iss_id, rx_id, qty):
         transaction = xrpl.models.transactions.Payment(
             account=self.wallet.classic_address,
-            amount=MPTAmount(mpt_issuance_id=iss_id, value="100"),
+            amount=MPTAmount(mpt_issuance_id=iss_id, value=str(qty)),
             destination=rx_id,
         )
         transaction = xrpl.transaction.autofill_and_sign(transaction, self.client, self.wallet)
@@ -81,6 +80,25 @@ class Bank(Entity):
         res = xrpl.transaction.submit(req, self.client)
         res = res.result
         return res
+
+    def send_xrp(self, address, tx_hash):
+        current_rate = self.get_current_rate() / (10 ** 4)
+        txn = self.get_txn(tx_hash)
+        iss_id = txn['DeliverMax']['mpt_issuance_id']
+        mpt_data = self.get_mpt_meta(iss_id)
+        old_rate: float = (float(mpt_data['additional_info']['rate']) /
+                           (10 ** float(mpt_data['additional_info']['scale'])))
+        qty: int = int(txn['DeliverMax']['value'])
+
+        new_qty = qty * old_rate / current_rate
+
+        transaction = xrpl.models.transactions.Payment(
+            account=self.wallet.classic_address,
+            amount=str(int(new_qty)),
+            destination=address
+        )
+        res = xrpl.transaction.sign_and_submit(transaction, self.client, self.wallet, autofill=True)
+        return res.result['tx_json']['hash']
 
 
 if __name__ == '__main__':

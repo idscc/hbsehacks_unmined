@@ -23,11 +23,22 @@ print("Client balance: ", c.data["account_data"]["Balance"])
 # hold_id = b.create_hold()
 # pprint(hold_id)
 
-time.sleep(1)
-hold_iss = b.create_hold()
+print('Client request hold at current rate')
+tx_hash = c.send_xrp(b.wallet.classic_address, 100)
+print('Bank sees txn and creates mpt')
+iss_id = b.create_hold(tx_hash)  # TODO: add an identifier in metadata
+print('Client authorizes mpt')
+c.allow_mpt(iss_id)
+print('Bank sends mpt')
+b.send_hold(iss_id, c.wallet.classic_address, 100)
 
-print(c.allow_mpt(hold_iss).result['engine_result'])
-print(b.send_hold(hold_iss, c.wallet.classic_address).result['engine_result'])
+time.sleep(1)
+
+print('Client requests return')
+tx_hash = c.send_hold(b.wallet.classic_address, iss_id, 100)
+print('Bank notices and sends back xrp at agreed value')
+b.send_xrp(c.wallet.classic_address, tx_hash)
+
 
 # pprint(b.get_txns())
 if __name__ == '__main__':
